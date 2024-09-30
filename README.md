@@ -1,4 +1,4 @@
-Fitness App
+# Fitness App
 
 1. Project title
 Wellness/Fitness app
