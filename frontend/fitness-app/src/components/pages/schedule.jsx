@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import axios from "axios";
 
-// TODO Get all input into one day
+import DaySchedule from "../days/daySchedule";
 
 const Schedule = () => {
   const navigate = useNavigate();
@@ -12,89 +12,58 @@ const Schedule = () => {
     navigate("/");
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const methods = useForm();
 
-  const [selectedExercises, setSelectedExercises] = useState([]);
-
-  const onSubmit = (data) => {
-    console.log(data);
-    setSelectedExercises([
-      ...selectedExercises,
-      data.Exercise_One,
-      data.Exercise_Two,
-    ]);
-  };
-
+  const [days, setDays] = useState([]);
   const [exercises, setExercises] = useState([]);
+  const [data, setData] = useState("");
 
   useEffect(() => {
-    const getAllExercises = async () => {
+    const getAllData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/exercises");
-        const formattedExercises = response.data.map((item) => ({
-          id: item[0],
-          name: item[1],
-          category: item[2],
-        }));
-        setExercises(formattedExercises);
+        const exResponse = await axios.get("http://localhost:5000/exercises");
+        const exList = exResponse.data.map((exArray) => exArray[0]);
+        setExercises(exList);
+        console.log("exercises:", exercises);
+
+        const daysResponse = await axios.get("http://localhost:5000/days");
+        const daysList = daysResponse.data.map((dayArray) => dayArray[0]);
+        setDays(daysList);
+        console.log("days:", days);
       } catch (error) {
-        console.log("Error retrieving exercises", error);
+        console.error("Error retrieving the data from the API: ", error);
       }
     };
 
-    getAllExercises();
+    getAllData();
   }, []);
 
+  const onSubmit = (formData) => {
+    console.log("form submitted!", formData);
+    setData(JSON.stringify(formData, null, 2));
+    console.log(data);
+
+    // TODO create the submission request to the server
+    // TODO prepare the data from "data" to be submitted
+    // TODO Modify "training" table to include more than one exercise per day
+    // TODO Change values inside the "training" table so that it has names, not IDs
+  };
+
   return (
-    <div>
+    <FormProvider {...methods}>
       <h1>This is your scheduled training</h1>
 
       <button onClick={logout}>Logout</button>
 
-      <h2>Monday</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <select {...register("Exercise_One")}>
-          <option value="" disabled>
-            Select an exercise
-          </option>
-          {exercises.map((exercise) => (
-            <option key={exercise.id} value={exercise.id}>
-              {exercise.name} ({exercise.category})
-            </option>
-          ))}
-        </select>
-
-        <select {...register("Exercise_Two")}>
-          <option value="" disabled>
-            Select an exercise
-          </option>
-          {exercises.map((exercise) => (
-            <option key={exercise.id} value={exercise.id}>
-              {exercise.name} ({exercise.category})
-            </option>
-          ))}
-        </select>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        {days.map((day, index) => (
+          <DaySchedule key={index} day={day} exercises={exercises} />
+        ))}
 
         <input type="submit" value="Set training" />
       </form>
-
-      <ul>
-        {selectedExercises.map((exerciseId, index) => {
-          const exercise = exercises.find(
-            (ex) => ex.id === parseInt(exerciseId)
-          );
-          return (
-            <li key={index}>
-              {exercise?.name} ({exercise?.category})
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+      <pre>{data}</pre>
+    </FormProvider>
   );
 };
 
