@@ -15,7 +15,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     axios
       .post("http://localhost:5000/login", {
-        email: data.email,
+        username: data.username,
         password: data.password,
       })
       .then((response) => {
@@ -23,6 +23,7 @@ const LoginForm = () => {
         sessionStorage.setItem("token", response.data.access_token);
         setLoginError("");
         navigate("/schedule");
+        sessionStorage.setItem("username", data.username);
       })
       .catch((error) => {
         if (error.response) {
@@ -46,20 +47,15 @@ const LoginForm = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
           <div className="form-control">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="username">Username</label>
             <input
-              type="email"
-              id="email"
-              {...register("email", {
-                required: { value: true, message: "Email is required." },
-                // pattern: {
-                //   value:
-                //     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                //   message: "Invalid email format",
-                // },
+              type="text"
+              id="username"
+              {...register("username", {
+                required: { value: true, message: "Username is required." },
               })}
             />
-            <p className="error">{errors.email?.message}</p>
+            <p className="error">{errors.username?.message}</p>
           </div>
 
           <div className="form-control">

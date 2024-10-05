@@ -38,15 +38,44 @@ const Schedule = () => {
     getAllData();
   }, []);
 
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     console.log("form submitted!", formData);
     setData(JSON.stringify(formData, null, 2));
-    console.log(data);
 
-    // TODO create the submission request to the server
-    // TODO prepare the data from "data" to be submitted
-    // TODO Modify "training" table to include more than one exercise per day
-    // TODO Change values inside the "training" table so that it has names, not IDs
+    const username = sessionStorage.getItem("username");
+    const trainingData = days.map((day) => ({
+      day,
+      user: username,
+      exercise1: formData[`exercise1_${day}`],
+      exercise2: formData[`exercise2_${day}`],
+      exercise3: formData[`exercise3_${day}`],
+    }));
+
+    try {
+      await Promise.all(
+        trainingData.map(async (data) => {
+          await axios.post("http://localhost:5000/training", data);
+        })
+      );
+      console.log("All requests completed", data);
+    } catch (error) {
+      console.error("Error posting request", error);
+    }
+
+    // const postData = () => {
+    //   axios
+    //     .post("http://localhost:5000/training", {
+    //       day: "Monday",
+    //       user: username,
+    //       exercise1: "Squat",
+    //       exercise2: "Push-up",
+    //       exercise3: "Chin-up",
+    //     })
+    //     .then((response) => {
+    //       console.log("response: ", response);
+    //     });
+    // };
+    // postData();
   };
 
   return (
