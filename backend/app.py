@@ -37,17 +37,17 @@ def get_db_connection():
 # endpoint to authenticate users and return JWTs
 @app.route("/login", methods=["POST"])
 def login():
-    email = request.json.get("email", None)
+    username = request.json.get("username", None)
     password = request.json.get("password", None)
     
     conn = get_db_connection()
-    user = conn.execute('SELECT * FROM users WHERE users_email = ?', (email,)).fetchone()
+    user = conn.execute('SELECT * FROM users WHERE users_name = ?', (username,)).fetchone()
     conn.close()
 
     if user is None or user['users_password'] !=password:
         return jsonify({"msg": "The email or password are incorrect. Please try again."}), 401
 
-    access_token = create_access_token(identity=email)
+    access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token)
 
 
@@ -182,10 +182,12 @@ def create_training():
     data = request.get_json()
     day = data['day']
     user = data['user']
-    exercise = data['exercise']
+    exercise1 = data['exercise1']
+    exercise2 = data['exercise2']
+    exercise3 = data['exercise3']
     conn = sqlite3.connect('C:/Users/ainho\OneDrive/Documentos/Formación/Developers from Euskadi/__Full Stack/fitness-app/db/fitness.sqlite')
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO training (training_day_name, training_user_name, training_exercise_name) VALUES (?, ?, ?)', (day, user, exercise))
+    cursor.execute('INSERT INTO training (training_day_name, training_user_name, training_exercise1, training_exercise2, training_exercise3) VALUES (?, ?, ?, ?, ?)', (day, user, exercise1, exercise2, exercise3))
     conn.commit()
     cursor.close()
     conn.close()
