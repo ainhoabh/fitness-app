@@ -194,5 +194,17 @@ def create_training():
     return jsonify({'message': 'The training has been created.'})
 
 
+# endpoint to retrieve training data
+@app.route('/user/<username>/training', methods=['GET'])
+def get_training(username):
+    conn = sqlite3.connect('C:/Users/ainho\OneDrive/Documentos/Formación/Developers from Euskadi/__Full Stack/fitness-app/db/fitness.sqlite')
+    cursor = conn.cursor()
+    cursor.execute('SELECT training_day_name, training_exercise1, training_exercise1, training_exercise3 FROM training WHERE training_user_name = ?', (username,))
+    training_data = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(training_data)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
