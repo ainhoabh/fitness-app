@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./components/pages/home.jsx";
 import Schedule from "./components/pages/schedule.jsx";
 import PrivateRoute from "./components/auth/privateRoute.jsx";
+import TrainingData from "./components/pages/training.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/training" element={<TrainingData />} />
       </Routes>
     </Router>
   );
