@@ -12,6 +12,10 @@ const Schedule = () => {
     navigate("/");
   };
 
+  const goToTraining = () => {
+    navigate("/training");
+  };
+
   const methods = useForm();
 
   const [days, setDays] = useState([]);
@@ -24,12 +28,12 @@ const Schedule = () => {
         const exResponse = await axios.get("http://localhost:5000/exercises");
         const exList = exResponse.data.map((exArray) => exArray[0]);
         setExercises(exList);
-        console.log("exercises:", exercises);
+        console.log("exercises:", exList);
 
         const daysResponse = await axios.get("http://localhost:5000/days");
         const daysList = daysResponse.data.map((dayArray) => dayArray[0]);
         setDays(daysList);
-        console.log("days:", days);
+        console.log("days:", daysList);
       } catch (error) {
         console.error("Error retrieving the data from the API: ", error);
       }
@@ -58,29 +62,15 @@ const Schedule = () => {
         })
       );
       console.log("All requests completed", data);
+      goToTraining();
     } catch (error) {
       console.error("Error posting request", error);
     }
-
-    // const postData = () => {
-    //   axios
-    //     .post("http://localhost:5000/training", {
-    //       day: "Monday",
-    //       user: username,
-    //       exercise1: "Squat",
-    //       exercise2: "Push-up",
-    //       exercise3: "Chin-up",
-    //     })
-    //     .then((response) => {
-    //       console.log("response: ", response);
-    //     });
-    // };
-    // postData();
   };
 
   return (
     <FormProvider {...methods}>
-      <h1>This is your scheduled training</h1>
+      <h2>Schedule your training here</h2>
 
       <button onClick={logout}>Logout</button>
 
@@ -91,7 +81,6 @@ const Schedule = () => {
 
         <input type="submit" value="Set training" />
       </form>
-      <pre>{data}</pre>
     </FormProvider>
   );
 };

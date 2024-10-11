@@ -22,7 +22,7 @@ const LoginForm = () => {
         console.log("Login successful", response.data);
         sessionStorage.setItem("token", response.data.access_token);
         setLoginError("");
-        navigate("/schedule");
+        navigate("/training");
         sessionStorage.setItem("username", data.username);
       })
       .catch((error) => {

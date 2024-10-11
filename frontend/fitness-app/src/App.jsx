@@ -6,6 +6,7 @@ import Home from "./components/pages/home.jsx";
 import Schedule from "./components/pages/schedule.jsx";
 import PrivateRoute from "./components/auth/privateRoute.jsx";
 import TrainingData from "./components/pages/training.jsx";
+import EditTraining from "./components/pages/editTraining.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           }
         />
         <Route path="/training" element={<TrainingData />} />
+        <Route path="/edit" element={<EditTraining />} />
       </Routes>
     </Router>
   );

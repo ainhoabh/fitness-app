@@ -7,7 +7,7 @@ const DaySchedule = ({ day, exercises }) => {
 
   return (
     <div>
-      <h2>{day}</h2>
+      <h3>{day}</h3>
       <label htmlFor={`exercise1_${day}`}>Exercise 1</label>
       <select {...register(`exercise1_${day}`, { required: true })}>
         <option value="" disabled>
