@@ -176,10 +176,11 @@ def get_exercise(exercise_id):
         return jsonify({'message': 'The exercise does not exist.'}), 404
     
 
-# endpoint to create a training day
+# endpoint to create a training
 @app.route('/training', methods=['POST'])
 def create_training():
     data = request.get_json()
+    print(data)
     day = data['day']
     user = data['user']
     exercise1 = data['exercise1']
@@ -204,6 +205,37 @@ def get_training(username):
     cursor.close()
     conn.close()
     return jsonify(training_data)
+
+
+# endpoint to update training data
+@app.route('/user/<user>/training', methods=['PUT'])
+def update_training(user):
+    data = request.get_json()
+    print(data)
+    day = data['day']
+    user = data['user']
+    exercise1 = data['exercise1']
+    exercise2 = data['exercise2']
+    exercise3 = data['exercise3']
+    conn = sqlite3.connect('C:/Users/ainho\OneDrive/Documentos/Formación/Developers from Euskadi/__Full Stack/fitness-app/db/fitness.sqlite')
+    cursor = conn.cursor()
+    cursor.execute('UPDATE training SET training_exercise1 = ?, training_exercise2 = ?, training_exercise3 = ? WHERE training_user_name = ? AND training_day_name = ?', (exercise1, exercise2, exercise3, user, day))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({'message': 'The training has been updated.'})
+    
+
+# endpoint to delete training data
+@app.route('/user/<username>/training_delete', methods=['DELETE'])
+def delete_training(username):
+    conn = sqlite3.connect('C:/Users/ainho\OneDrive/Documentos/Formación/Developers from Euskadi/__Full Stack/fitness-app/db/fitness.sqlite')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM training WHERE training_user_name = ?', (username,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({'message': 'The training data has been deleted.'})
 
 
 if __name__ == '__main__':
