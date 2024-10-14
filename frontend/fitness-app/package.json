@@ -3,9 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.17.0",
+    "npm": "10.8.2"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "serve -s build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -18,7 +23,8 @@
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    "serve": "^14.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
