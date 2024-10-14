@@ -200,7 +200,7 @@ def create_training():
 def get_training(username):
     conn = sqlite3.connect('C:/Users/ainho\OneDrive/Documentos/Formación/Developers from Euskadi/__Full Stack/fitness-app/db/fitness.sqlite')
     cursor = conn.cursor()
-    cursor.execute('SELECT training_day_name, training_exercise1, training_exercise1, training_exercise3 FROM training WHERE training_user_name = ?', (username,))
+    cursor.execute('SELECT training_day_name, training_exercise1, training_exercise2, training_exercise3 FROM training WHERE training_user_name = ?', (username,))
     training_data = cursor.fetchall()
     cursor.close()
     conn.close()
