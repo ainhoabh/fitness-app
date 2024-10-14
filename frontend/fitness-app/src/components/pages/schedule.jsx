@@ -72,8 +72,6 @@ const Schedule = () => {
     <FormProvider {...methods}>
       <h2>Schedule your training here</h2>
 
-      <button onClick={logout}>Logout</button>
-
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         {days.map((day, index) => (
           <DaySchedule key={index} day={day} exercises={exercises} />
@@ -81,6 +79,8 @@ const Schedule = () => {
 
         <input type="submit" value="Set training" />
       </form>
+
+      <button onClick={logout}>Logout</button>
     </FormProvider>
   );
 };

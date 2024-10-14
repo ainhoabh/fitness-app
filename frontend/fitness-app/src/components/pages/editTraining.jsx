@@ -1,3 +1,7 @@
+// TODO añadir estilos y media queries
+// TODO deployment
+// TODO nice to have: añadir imágenes de los ejercicios
+
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
@@ -24,7 +28,6 @@ const EditTraining = () => {
 
   const [days, setDays] = useState([]);
   const [exercises, setExercises] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState("");
 
   useEffect(() => {

@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPersonRunning, faSpinner } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPersonRunning, faSpinner);
 
 import Home from "./components/pages/home.jsx";
 import Schedule from "./components/pages/schedule.jsx";

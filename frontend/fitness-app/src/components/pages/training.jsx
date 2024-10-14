@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPersonRunning, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const TrainingData = () => {
-  // en Schedule tengo una variable "traningData"; es un problema?
   const [trainingData, setTrainingData] = useState([]);
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState([]);
@@ -16,6 +17,10 @@ const TrainingData = () => {
 
   const editTraining = (data) => {
     navigate("/edit", { state: { trainingData: data } });
+  };
+
+  const goToCreateTraining = () => {
+    navigate("/schedule");
   };
 
   const deleteTraining = async () => {
@@ -34,7 +39,6 @@ const TrainingData = () => {
   useEffect(() => {
     const fetchTrainingData = async () => {
       try {
-        // En Schedule tengo la misma línea de código, con misma variable. Es un problema?
         const username = sessionStorage.getItem("username");
         const response = await axios.get(
           `http://localhost:5000/user/${username}/training`
@@ -65,29 +69,43 @@ const TrainingData = () => {
     return dayOrder.indexOf(a[0]) - dayOrder.indexOf(b[0]);
   });
 
-  if (loading) return <div>Loading...</div>;
-  //   if (error) return <div>Error: {error.message}</div>;
+  if (loading)
+    return (
+      <div>
+        Loading <FontAwesomeIcon icon={faSpinner} spin />
+      </div>
+    );
 
   return (
-    <div>
-      <h2>Scheduled training</h2>
+    <div className="training-wrapper">
+      <h1>Scheduled training</h1>
 
       {trainingData && trainingData.length > 0 ? (
-        <div>
-          <ul>
+        <div className="weekly-training-wrapper">
+          <ul className="fa-ul">
             {sortedTrainingData.map((data, index) => (
               <li key={index}>
-                Day: {data[0]}, Exercise 1: {data[1]}, Exercise 2: {data[2]},
-                Exercise 3: {data[3]}
+                <div className="day-name-wrapper">
+                  <h3>
+                    <FontAwesomeIcon icon={faPersonRunning} />
+                    {data[0]}
+                  </h3>
+                </div>
+                <div className="exercises-wrapper">
+                  <div className="exercise">{data[1]}</div>
+                  <div className="exercise">{data[2]}</div>
+                  <div className="exercise">{data[3]}</div>
+                </div>
               </li>
             ))}
           </ul>
+          <div className="button-wrapper">
+            <button onClick={() => editTraining(trainingData)}>
+              Edit training
+            </button>
 
-          <button onClick={() => editTraining(trainingData)}>
-            Edit training
-          </button>
-
-          <button onClick={() => deleteTraining()}>Delete training</button>
+            <button onClick={() => deleteTraining()}>Delete training</button>
+          </div>
         </div>
       ) : (
         <div>
@@ -95,12 +113,13 @@ const TrainingData = () => {
             You don't have any training data available. You can create your
             training here:
           </p>
-
-          <Link to={"/schedule"}>Create training</Link>
+          <button onClick={goToCreateTraining}>Create training</button>
         </div>
       )}
 
-      <button onClick={logout}>Logout</button>
+      <button className="logout-button" onClick={logout}>
+        Logout
+      </button>
     </div>
   );
 };

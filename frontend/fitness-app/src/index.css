@@ -23,8 +23,10 @@ a:hover {
 }
 
 body {
+  position: relative;
   margin: 0;
   display: flex;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -34,7 +36,8 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+button,
+input {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -45,11 +48,14 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+button:hover,
+input:hover {
   border-color: #646cff;
 }
 button:focus,
-button:focus-visible {
+button:focus-visible,
+input:focus,
+input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -61,7 +67,67 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  button,
+  input {
     background-color: #f9f9f9;
+  }
+}
+
+.day-selection-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+select {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  width: 200px;
+  padding: 5px;
+  line-height: 1.5;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.training-wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weekly-training-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.fa-ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exercise {
+  padding: 5px;
+}
+
+.button-wrapper {
+  margin-top: 50px;
+
+  button {
+    margin: 0 10px;
+  }
+}
+
+.logout-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .fa-ul {
+    display: flex;
+    flex-direction: column;
   }
 }

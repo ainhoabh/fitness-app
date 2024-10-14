@@ -12,6 +12,11 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState("");
 
+  const logout = () => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  };
+
   const onSubmit = async (data) => {
     axios
       .post("http://localhost:5000/login", {
@@ -43,7 +48,10 @@ const LoginForm = () => {
     <div>
       <h1>FITNESS APP</h1>
       {token && token != "" && token != undefined ? (
-        "You are logged in with this token: " + token
+        <div>
+          <p>You are logged in.</p>
+          <button onClick={logout}>Logout</button>
+        </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
           <div className="form-control">
