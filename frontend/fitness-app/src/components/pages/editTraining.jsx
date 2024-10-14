@@ -1,4 +1,3 @@
-// TODO añadir estilos y media queries
 // TODO deployment
 // TODO nice to have: añadir imágenes de los ejercicios
 
@@ -55,10 +54,10 @@ const EditTraining = () => {
               training_exercise3,
             ] = trainingArray;
 
-            console.log("processing day:", day);
-            console.log("training_exercise1:", training_exercise1);
-            console.log("training_exercise2:", training_exercise2);
-            console.log("training_exercise3:", training_exercise3);
+            // console.log("processing day:", day);
+            // console.log("training_exercise1:", training_exercise1);
+            // console.log("training_exercise2:", training_exercise2);
+            // console.log("training_exercise3:", training_exercise3);
 
             formattedData[`exercise1_${day}`] = training_exercise1;
             formattedData[`exercise2_${day}`] = training_exercise2;
@@ -108,7 +107,7 @@ const EditTraining = () => {
   return (
     <div>
       <FormProvider {...methods}>
-        <h2>You can edit your scheduled training here.</h2>
+        <h1>Edit routine</h1>
 
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           {days.map((day, index) => (
@@ -119,7 +118,9 @@ const EditTraining = () => {
         </form>
       </FormProvider>
 
-      <button onClick={logout}>Logout</button>
+      <button className="logout-button" onClick={logout}>
+        Logout
+      </button>
     </div>
   );
 };

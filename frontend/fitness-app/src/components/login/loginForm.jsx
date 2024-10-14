@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -83,8 +82,6 @@ const LoginForm = () => {
           <button disabled={!isDirty || !isValid}>Submit</button>
         </form>
       )}
-
-      <DevTool control={control} />
     </div>
   );
 };

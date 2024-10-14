@@ -69,19 +69,23 @@ const Schedule = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <h2>Schedule your training here</h2>
+    <div>
+      <FormProvider {...methods}>
+        <h1>Pick your routine</h1>
 
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {days.map((day, index) => (
-          <DaySchedule key={index} day={day} exercises={exercises} />
-        ))}
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          {days.map((day, index) => (
+            <DaySchedule key={index} day={day} exercises={exercises} />
+          ))}
 
-        <input type="submit" value="Set training" />
-      </form>
+          <input type="submit" value="Set training" />
+        </form>
+      </FormProvider>
 
-      <button onClick={logout}>Logout</button>
-    </FormProvider>
+      <button className="logout-button" onClick={logout}>
+        Logout
+      </button>
+    </div>
   );
 };
 

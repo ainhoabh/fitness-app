@@ -79,7 +79,6 @@ const TrainingData = () => {
   return (
     <div className="training-wrapper">
       <h1>Scheduled training</h1>
-
       {trainingData && trainingData.length > 0 ? (
         <div className="weekly-training-wrapper">
           <ul className="fa-ul">
@@ -87,7 +86,10 @@ const TrainingData = () => {
               <li key={index}>
                 <div className="day-name-wrapper">
                   <h3>
-                    <FontAwesomeIcon icon={faPersonRunning} />
+                    <FontAwesomeIcon
+                      icon={faPersonRunning}
+                      className="icon-running"
+                    />
                     {data[0]}
                   </h3>
                 </div>
@@ -116,7 +118,6 @@ const TrainingData = () => {
           <button onClick={goToCreateTraining}>Create training</button>
         </div>
       )}
-
       <button className="logout-button" onClick={logout}>
         Logout
       </button>
