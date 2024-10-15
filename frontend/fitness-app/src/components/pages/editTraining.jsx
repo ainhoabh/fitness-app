@@ -35,16 +35,12 @@ const EditTraining = () => {
         const exResponse = await axios.get("http://localhost:5000/exercises");
         const exList = exResponse.data.map((exArray) => exArray[0]);
         setExercises(exList);
-        console.log("exercises:", exercises);
 
         const daysResponse = await axios.get("http://localhost:5000/days");
         const daysList = daysResponse.data.map((dayArray) => dayArray[0]);
         setDays(daysList);
-        console.log("days:", days);
 
         if (initialTrainingData) {
-          console.log("initial training data: ", initialTrainingData);
-
           const formattedData = {};
           initialTrainingData.forEach((trainingArray) => {
             const [
@@ -54,17 +50,10 @@ const EditTraining = () => {
               training_exercise3,
             ] = trainingArray;
 
-            // console.log("processing day:", day);
-            // console.log("training_exercise1:", training_exercise1);
-            // console.log("training_exercise2:", training_exercise2);
-            // console.log("training_exercise3:", training_exercise3);
-
             formattedData[`exercise1_${day}`] = training_exercise1;
             formattedData[`exercise2_${day}`] = training_exercise2;
             formattedData[`exercise3_${day}`] = training_exercise3;
           });
-
-          console.log("formatted data for reset: ", formattedData);
 
           methods.reset(formattedData);
         }
@@ -77,7 +66,6 @@ const EditTraining = () => {
   }, [initialTrainingData, reset]);
 
   const onSubmit = async (formData) => {
-    console.log("form submitted!", formData);
     setData(JSON.stringify(formData, null, 2));
 
     const username = sessionStorage.getItem("username");

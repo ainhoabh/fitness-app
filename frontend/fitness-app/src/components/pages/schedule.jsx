@@ -28,12 +28,10 @@ const Schedule = () => {
         const exResponse = await axios.get("http://localhost:5000/exercises");
         const exList = exResponse.data.map((exArray) => exArray[0]);
         setExercises(exList);
-        console.log("exercises:", exList);
 
         const daysResponse = await axios.get("http://localhost:5000/days");
         const daysList = daysResponse.data.map((dayArray) => dayArray[0]);
         setDays(daysList);
-        console.log("days:", daysList);
       } catch (error) {
         console.error("Error retrieving the data from the API: ", error);
       }
@@ -43,7 +41,6 @@ const Schedule = () => {
   }, []);
 
   const onSubmit = async (formData) => {
-    console.log("form submitted!", formData);
     setData(JSON.stringify(formData, null, 2));
 
     const username = sessionStorage.getItem("username");
@@ -61,7 +58,6 @@ const Schedule = () => {
           await axios.post("http://localhost:5000/training", data);
         })
       );
-      console.log("All requests completed", data);
       goToTraining();
     } catch (error) {
       console.error("Error posting request", error);

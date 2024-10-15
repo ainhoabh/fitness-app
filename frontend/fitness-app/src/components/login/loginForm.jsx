@@ -45,7 +45,6 @@ const LoginForm = () => {
 
   return (
     <div>
-      <h1>FITNESS APP</h1>
       {token && token != "" && token != undefined ? (
         <div>
           <p>You are logged in.</p>

@@ -129,9 +129,45 @@ select {
   margin-right: 5px;
 }
 
+.img-carousel {
+  width: 400px;
+}
+
+.home-components-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-wrapper {
+  margin-top: 50px;
+}
+
+.carousel-wrapper {
+  padding: 50px;
+}
+
 @media only screen and (max-width: 768px) {
   .fa-ul {
     display: flex;
     flex-direction: column;
+  }
+
+  .home-components-wrapper {
+    flex-direction: column;
+  }
+
+  .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+  }
+
+  .img-carousel {
+    width: 300px;
   }
 }

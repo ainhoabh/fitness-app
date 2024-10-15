@@ -111,10 +111,7 @@ const TrainingData = () => {
         </div>
       ) : (
         <div>
-          <p>
-            You don't have any training data available. You can create your
-            training here:
-          </p>
+          <p>You don't have any training data available.</p>
           <button onClick={goToCreateTraining}>Create training</button>
         </div>
       )}
